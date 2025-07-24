@@ -1,0 +1,41 @@
+{
+  "name": "project-scheduler-backend",
+  "version": "0.1.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "npx tsc && node dist/index.js",
+    "test": "vitest --run",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Daniel88dev/project-scheduler-backend.git"
+  },
+  "author": "Daniel Hrynusiw",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Daniel88dev/project-scheduler-backend/issues"
+  },
+  "homepage": "https://github.com/Daniel88dev/project-scheduler-backend#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.31.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "eslint": "^9.31.0",
+    "eslint-plugin-security": "^3.0.1",
+    "globals": "^16.3.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  }
+}
