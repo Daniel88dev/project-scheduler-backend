@@ -1,17 +1,40 @@
 import dotenv from "dotenv";
-import * as process from "node:process";
 dotenv.config();
 
 type Config = {
   api: APIConfig;
+  db: DBConfig;
 };
 
 type APIConfig = {
-  port: string | undefined;
+  port: number;
 };
+
+type AWSDBConfig = {
+  database: string | undefined;
+  secret_arn: string | undefined;
+  resources_arn: string | undefined;
+};
+
+type DBConfig = {
+  database: string;
+};
+
+process.loadEnvFile();
+
+function envOrThrow(key: string) {
+  const value = process.env[key];
+  if (!value) {
+    throw new Error(`Environment variable ${key} is not set`);
+  }
+  return value;
+}
 
 export const config: Config = {
   api: {
-    port: process.env.PORT,
+    port: Number(envOrThrow("PORT")),
+  },
+  db: {
+    database: envOrThrow("DATABASE"),
   },
 };
