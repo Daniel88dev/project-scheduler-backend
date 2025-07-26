@@ -1,10 +1,4 @@
-import {
-  pgTable,
-  text,
-  timestamp,
-  boolean,
-  integer,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
 
 // better auth schemas
 
@@ -66,4 +60,68 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp("updated_at").$defaultFn(
     () => /* @__PURE__ */ new Date()
   ),
+});
+
+export type ProjectType = typeof project.$inferSelect;
+
+export type ProjectInsertType = typeof project.$inferInsert;
+
+export const project = pgTable("project", {
+  id: text("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  createdBy: text("created_by")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("created_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
+});
+
+export type ProjectUserType = typeof projectUser.$inferSelect;
+
+export type ProjectUserInsertType = typeof projectUser.$inferInsert;
+
+export const projectUser = pgTable("project_user", {
+  id: text("id").primaryKey(),
+  projectId: text("project_id")
+    .notNull()
+    .references(() => project.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id),
+  createdAt: timestamp("created_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
+});
+
+export type ProjectMilestoneType = typeof projectMilestone.$inferSelect;
+
+export type ProjectMilestoneInsertType = typeof projectMilestone.$inferInsert;
+
+export const projectMilestone = pgTable("project_milestone", {
+  id: text("id").primaryKey(),
+  projectId: text("project_id")
+    .notNull()
+    .references(() => project.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  description: text("description"),
+  completed: boolean("completed").notNull().default(false),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  assignedTo: text("assigned_to").references(() => user.id),
+  createdAt: timestamp("created_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
+  updatedAt: timestamp("updated_at")
+    .notNull()
+    .$defaultFn(() => /* @__PURE__ */ new Date()),
 });
