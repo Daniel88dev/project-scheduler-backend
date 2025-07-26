@@ -62,6 +62,10 @@ export const verification = pgTable("verification", {
   ),
 });
 
+export type ProjectType = typeof project.$inferSelect;
+
+export type ProjectInsertType = typeof project.$inferInsert;
+
 export const project = pgTable("project", {
   id: text("id").primaryKey(),
   title: text("title").notNull(),
@@ -79,6 +83,10 @@ export const project = pgTable("project", {
     .$defaultFn(() => /* @__PURE__ */ new Date()),
 });
 
+export type ProjectUserType = typeof projectUser.$inferSelect;
+
+export type ProjectUserInsertType = typeof projectUser.$inferInsert;
+
 export const projectUser = pgTable("project_user", {
   id: text("id").primaryKey(),
   projectId: text("project_id")
@@ -94,6 +102,10 @@ export const projectUser = pgTable("project_user", {
     .notNull()
     .$defaultFn(() => /* @__PURE__ */ new Date()),
 });
+
+export type ProjectMilestoneType = typeof projectMilestone.$inferSelect;
+
+export type ProjectMilestoneInsertType = typeof projectMilestone.$inferInsert;
 
 export const projectMilestone = pgTable("project_milestone", {
   id: text("id").primaryKey(),
