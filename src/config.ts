@@ -20,7 +20,7 @@ type DBConfig = {
   database: string;
 };
 
-process.loadEnvFile();
+// process.loadEnvFile();
 
 function envOrThrow(key: string) {
   const value = process.env[key];
